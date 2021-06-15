@@ -74,9 +74,9 @@
             // Sample URL: 
             // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
-            const rid = params.get('rid');
-            const gid = params.get('gid');
-            const apiUrl = `/api/bus-data?rid=${rid}&gid=${gid}`;
+            const count = params.get('count');
+            const initial = params.get('initial');
+            const apiUrl = `/api/bus-data?count=${count}&initial=${initial}`;
             $.getJSON(apiUrl, data => {
                 //console.log(data);
                 plotWKT(data);                
@@ -86,11 +86,11 @@
         function plotWKT(data) {
             var f1, f2;
 
-            if (data.busData == [] || data.geoFence == [])
+            if (data.airpdata == [] || data.geoFence == [])
                 return;
             try {
                 f1 = format.readFeature(data.geoFence);
-                f2 = format.readFeature(data.busData);
+                f2 = format.readFeature(data.airpdata);
             } catch (err) { }
 
             features.clear();

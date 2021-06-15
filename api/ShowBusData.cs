@@ -23,20 +23,21 @@ namespace ShowBusData
         private static readonly string AZURE_CONN_STRING = Environment.GetEnvironmentVariable("AzureSQLConnectionString");
 
         [FunctionName("ShowBusData")]
-        public static async Task<IActionResult> ShowBusData([HttpTrigger("get", Route = "bus-data")] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> ShowBusData([HttpTrigger("get", Route = "ap-data")] HttpRequest req, ILogger log)
         {                              
-            int rid = 0, gid = 0;
+            int count = 0;
+            char initial = '0';
 
-            Int32.TryParse(req.Query["rid"], out rid);
-            Int32.TryParse(req.Query["gid"], out gid);
+            Int32.TryParse(req.Query["count"], out count);
+            Char.TryParse(req.Query["initial"], out initial);
             
             using(var conn = new SqlConnection(AZURE_CONN_STRING))
             {
                 var result = await conn.QuerySingleOrDefaultAsync<string>(
-                    "web.GetMonitoredBusData", 
+                    "web.GetApData", 
                     new {
-                        @RouteId = rid,
-                        @GeofenceId = gid
+                        @countn = count,
+                        @initchar = initial
                     }, commandType: CommandType.StoredProcedure);                
                 
                 return new OkObjectResult(JObject.Parse(result));
