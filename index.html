@@ -76,7 +76,7 @@
             const params = new URLSearchParams(location.search);
             const count = params.get('count');
             const initial = params.get('initial');
-            const apiUrl = `/api/bus-data?count=${count}&initial=${initial}`;
+            const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
             $.getJSON(apiUrl, data => {
                 //console.log(data);
                 plotWKT(data);                
