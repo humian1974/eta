@@ -7,6 +7,11 @@
     <UserSecretsId>6e411168-c629-497f-a624-9f8fcbcaef33</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="etaapi\**" />
+    <EmbeddedResource Remove="etaapi\**" />
+    <None Remove="etaapi\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.10" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.1" />

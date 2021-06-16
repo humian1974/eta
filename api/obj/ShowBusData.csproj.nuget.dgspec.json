@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj": {}
+    "D:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj": {}
   },
   "projects": {
-    "d:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj": {
+    "D:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj",
+        "projectUniqueName": "D:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj",
         "projectName": "ShowBusData",
-        "projectPath": "d:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj",
+        "projectPath": "D:\\eemp\\gitbln\\eta\\api\\ShowBusData.csproj",
         "packagesPath": "C:\\Users\\home\\.nuget\\packages\\",
-        "outputPath": "d:\\eemp\\gitbln\\eta\\api\\obj\\",
+        "outputPath": "D:\\eemp\\gitbln\\eta\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\home\\AppData\\Roaming\\NuGet\\NuGet.Config",
