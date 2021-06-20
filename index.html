@@ -84,23 +84,16 @@
         }
 
         function plotWKT(data) {
-            var f1, f2;
+            var f2;
 
-            if (data.airpdata == [] || data.geoFence == [])
+            if (data.airpdata == [])
                 return;
             try {
-                f1 = format.readFeature(data.geoFence);
                 f2 = format.readFeature(data.airpdata);
             } catch (err) { }
 
             features.clear();
 
-            // geoFence
-            if (f1)
-            {
-                f1.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                features.push(f1);
-            }
             // busData
             if (f2)
             {
@@ -114,7 +107,7 @@
             });
             map.addLayer(vector);
             
-            derived_feature = f2 ?? f1;
+            derived_feature = f2;
             extent = derived_feature.getGeometry().getExtent();
             minx = derived_feature.getGeometry().getExtent()[0];
             miny = derived_feature.getGeometry().getExtent()[1];
