@@ -6,26 +6,29 @@
 
 <head>
     <title>Eta</title>
-  <style>
-    #bottom {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        color: white;
-        background-color: black;
-        padding: 2px 0;
-        text-align: center;
-      }
-  </style>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+        #bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            background-color: black;
+            padding: 2px 0;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
-  <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-  <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
-  <script type='text/javascript'>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script type='text/javascript'>
         var raster;
         var source;
         var vector;
@@ -57,7 +60,23 @@
             })
         ];
 
-        function init() {           
+        // from CY
+        function addInteraction(shape) {
+            draw = new ol.interaction.Draw({
+                features: features,
+                type: /** @type {ol.geom.GeometryType} */ shape
+            });
+            map.addInteraction(draw);
+        }
+
+        // from CY
+        function selectGeom(shape) {
+            current_shape = shape;
+            map.removeInteraction(draw);
+            addInteraction(shape);
+        }
+
+        function init() {
             raster = new ol.layer.Tile({
                 source: new ol.source.OSM()
             });
@@ -71,7 +90,7 @@
                 })
             });
 
-            // Sample URL: 
+            // Sample URL:
             // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
             const count = params.get('count');
@@ -79,9 +98,14 @@
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
             $.getJSON(apiUrl, data => {
                 //console.log(data);
-                plotWKT(data);                
+                plotWKT(data);
             });
         }
+        // from CY
+        function restoreDefaultColors() {
+            document.getElementById("wktStringTextArea").style.borderColor = "";
+            document.getElementById("wktStringTextArea").style.backgroundColor = "";
+        };
 
         function plotWKT(data) {
             var f2;
@@ -95,8 +119,7 @@
             features.clear();
 
             // busData
-            if (f2)
-            {
+            if (f2) {
                 f2.getGeometry().transform('EPSG:4326', 'EPSG:3857');
                 features.push(f2);
             }
@@ -106,7 +129,7 @@
                 style: styles
             });
             map.addLayer(vector);
-            
+
             derived_feature = f2;
             extent = derived_feature.getGeometry().getExtent();
             minx = derived_feature.getGeometry().getExtent()[0];
@@ -118,22 +141,86 @@
             map.setView(new ol.View({
                 center: [centerx, centery],
                 zoom: 10
-            }));            
-            map.getView().fit(extent, map.getSize());            
+            }));
+            map.getView().fit(extent, map.getSize());
         }
+        // from CY
+        function clearMap() {
+            map.removeLayer(vector);
+            features.clear();
+            vector = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: features }),
+                style: styles
+            });
+            selectGeom(current_shape);
+            map.addLayer(vector);
+            document.getElementById("wktStringTextArea").value = "";
+            restoreDefaultColors();
+        }
+
     </script>
 </head>
 
 <body onload="init()">
-    <div class="container-fluid" style="padding:0px;border:0px;height:100%">
+    <div class="container-fluid" style="padding:2px;border:4px;height:100%">
         <div class="span12">
             <div id="map" class="map" style="z-index: 0"></div>
         </div>
     </div>
-    <div id="bottom">
-        inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
+    <div class="table table-striped mt-4" id="tbldata">
+        <h2>{{ message }}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <!-- from CY
+        <div class="span12" style="padding: 10px; border:0px">
+            <textarea id="wktStringTextArea" class="form-control" rows="2" onclick="restoreDefaultColors()">
+            GEOMETRYCOLLECTION(POLYGON((89.4990234375 42.73410219406955,119.03027343750001 43.05604502521945,105.05566406250001 24.83061329183866,89.4990234375 42.73410219406955)),POINT(104.0888671875 34.79937020713594))
+          </textarea>
+            <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
+                <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
+                <button type="button" class="btn btn-primary" onclick="plotWKT()">Plot Shape</button>
+            </div>
 
+            <div id="bottom">
+                inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
+            </div>
+    -->
+    <script>
+        var tbldata = new vue({
+            el: '#tbldata',
+            data: {
+                message: 'hello world'
+            }
+        })
+    </script>
 </body>
 
 </html>
