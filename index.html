@@ -167,34 +167,23 @@
             <div id="map" class="map" style="z-index: 0"></div>
         </div>
     </div>
-    <div class="table table-striped mt-4" id="tbldata">
+    <div class="table table-striped mt-4" id="tbl">
         <h2>{{ message }}</h2>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">ICAO</th>
+                    <th scope="col">rwy</th>
+                    <th scope="col">evl</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr v-for="ap in aps">
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                    <td>{{ap.icao}}</td>
+                    <td>{{ap.rwy}}</td>
+                    <td>{{ap.elevation}}</td>
                 </tr>
             </tbody>
         </table>
@@ -214,13 +203,24 @@
             </div>
     -->
     <script>
-        var tbldata = new vue({
-            el: '#tbldata',
+        var tbl = new Vue({
+            el: '#tbl',
             data: {
-                message: 'hello world'
+                aps: []
+            },
+            mounted: function () {
+                axios.get('https://agreeable-field-00d90ff00-1.eastasia.azurestaticapps.net/api/ap-data')
+                    .then(response => {
+                        this.aps = response.data;
+                        console.log(response);
+                    })
+                    .catch(response => {
+                        console.log(error);
+                    });
             }
         })
     </script>
+
 </body>
 
 </html>
