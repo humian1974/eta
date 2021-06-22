@@ -209,7 +209,7 @@
                 ary: []
             },
             mounted: function () {
-                axios.get('https://agreeable-field-00d90ff00-1.eastasia.azurestaticapps.net/api/ap-data')
+                axios.get('/api/ap-data')
                     .then(response => {
                         this.ary = response.data.aps;
                         console.log(response);
