@@ -179,11 +179,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="ap in aps">
+                <tr v-for="apt in ary">
                     <th scope="row">1</th>
-                    <td>{{ap.icao}}</td>
-                    <td>{{ap.rwy}}</td>
-                    <td>{{ap.elevation}}</td>
+                    <td>{{apt.icao}}</td>
+                    <td>{{apt.rwy}}</td>
+                    <td>{{apt.elevation}}</td>
                 </tr>
             </tbody>
         </table>
@@ -206,12 +206,12 @@
         var tbl = new Vue({
             el: '#tbl',
             data: {
-                aps: []
+                ary: []
             },
             mounted: function () {
                 axios.get('https://agreeable-field-00d90ff00-1.eastasia.azurestaticapps.net/api/ap-data')
                     .then(response => {
-                        this.aps = response.data;
+                        this.ary = response.data.aps;
                         console.log(response);
                     })
                     .catch(response => {
