@@ -174,13 +174,13 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">ICAO</th>
-                    <th scope="col">rwy</th>
-                    <th scope="col">evl</th>
+                    <th scope="col">runway lenth</th>
+                    <th scope="col">elevation</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt in ary">
-                    <th scope="row">1</th>
+                <tr v-for="apt, index in ary">
+                    <th scope="row">{{ index +1 }}</th>
                     <td>{{apt.icao}}</td>
                     <td>{{apt.rwy}}</td>
                     <td>{{apt.elevation}}</td>
