@@ -34,7 +34,7 @@ namespace ShowBusData
             using(var conn = new SqlConnection(AZURE_CONN_STRING))
             {
                 var result = await conn.QuerySingleOrDefaultAsync<string>(
-                    "web.GetairportData", 
+                    "web.GetairportData2", 
                     new {
                         @countn = count,
                         @initchar = initial

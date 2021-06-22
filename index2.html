@@ -1,9 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<!--
-    Code inspired from https://github.com/clydedacruz/openstreetmap-wkt-playground
--->
-
 <head>
     <title>Eta</title>
     <style>
@@ -28,6 +24,7 @@
     <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <script type='text/javascript'>
         var raster;
         var source;
@@ -167,60 +164,46 @@
             <div id="map" class="map" style="z-index: 0"></div>
         </div>
     </div>
-    <div class="table table-striped mt-4" id="tbl">
-        <h2>{{ message }}</h2>
+    <div class="table table-striped mt-4" id="app">
+        {{ message }}
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ICAO</th>
-                    <th scope="col">runway lenth</th>
-                    <th scope="col">elevation</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt, index in ary">
-                    <th scope="row">{{ index +1 }}</th>
-                    <td>{{apt.icao}}</td>
-                    <td>{{apt.rwy}}</td>
-                    <td>{{apt.elevation}}</td>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <!-- from CY
-        <div class="span12" style="padding: 10px; border:0px">
-            <textarea id="wktStringTextArea" class="form-control" rows="2" onclick="restoreDefaultColors()">
-            GEOMETRYCOLLECTION(POLYGON((89.4990234375 42.73410219406955,119.03027343750001 43.05604502521945,105.05566406250001 24.83061329183866,89.4990234375 42.73410219406955)),POINT(104.0888671875 34.79937020713594))
-          </textarea>
-            <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
-                <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-                <button type="button" class="btn btn-primary" onclick="plotWKT()">Plot Shape</button>
-            </div>
 
-            <div id="bottom">
-                inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
-            </div>
-    -->
     <script>
-        var tbl = new Vue({
-            el: '#tbl',
+        var app = new Vue({
+            el: '#app',
             data: {
-                ary: []
-            },
-            mounted: function () {
-                axios.get('https://agreeable-field-00d90ff00-1.eastasia.azurestaticapps.net/api/ap-data')
-                    .then(response => {
-                        this.ary = response.data.aps;
-                        console.log(response);
-                    })
-                    .catch(response => {
-                        console.log(error);
-                    });
+                message: 'Hello Vue!'
             }
         })
     </script>
-
 </body>
-
 </html>
