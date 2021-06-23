@@ -236,11 +236,12 @@
             <textarea id="wktStringTextArea" class="form-control" rows="2" onclick="restoreDefaultColors()">
             GEOMETRYCOLLECTION(POLYGON((89.4990234375 42.73410219406955,119.03027343750001 43.05604502521945,105.05566406250001 24.83061329183866,89.4990234375 42.73410219406955)),POINT(104.0888671875 34.79937020713594))
           </textarea>
-            <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
-                <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-                <button type="button" class="btn btn-primary" onclick="plotWKT()">Plot Shape</button>
-            </div>
-
+    --->
+    <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
+        <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
+        <button type="button" class="btn btn-primary" onclick="pKT2()">Plot point</button>
+    </div>
+    <!---
             <div id="bottom">
                 inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
             </div>
@@ -263,7 +264,7 @@
             }
         })
     </script>
-
+    <!---
     <div id="example">
         <form action="javascript:void(0);">
             <button v-on:click="dosomething">Add 1</button>
@@ -285,12 +286,12 @@
                     // `this` inside methods points to the Vue instance
                     // `event` is the native DOM event
                     // alert(event.target.tagName);
-                    this.counter += 1;
-                    this.message = 'Hello ' + (places[this.counter % 4]) + '!';
+                    pKT2(data);
                 }
             }
         })
     </script>
+    --->
 </body >
 
 </html >
