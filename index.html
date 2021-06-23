@@ -40,6 +40,7 @@
         var features = new ol.Collection();
         var format = new ol.format.WKT();
         var current_shape = "point";
+        var apiData;
 
         var fill = new ol.style.Fill({
             color: 'rgba(167, 122, 210, 0.2)'
@@ -119,10 +120,9 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            $.getJSON(apiUrl, data => {
-                //console.log(data);
-                plotWKT(data);
-            });
+            $.getJSON(apiUrl, apiData);
+            console.log(apiData);
+            plotWKT(apiData);
         }
         // from CY
         function restoreDefaultColors() {
@@ -198,7 +198,6 @@
             });
             selectGeom(current_shape);
             map.addLayer(vector);
-            document.getElementById("wktStringTextArea").value = "";
             restoreDefaultColors();
         }
 
@@ -239,7 +238,7 @@
     --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="pKT2()">Plot point</button>
+        <button type="button" class="btn btn-primary" onclick="pKT2(apiData)">Plot point</button>
     </div>
     <!---
             <div id="bottom">
@@ -253,14 +252,7 @@
                 ary: []
             },
             mounted: function () {
-                axios.get('/api/ap-data')
-                    .then(response => {
-                        this.ary = response.data.aps;
-                        console.log(response);
-                    })
-                    .catch(response => {
-                        console.log(error);
-                    });
+                ary = apiData.aps;
             }
         })
     </script>
