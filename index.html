@@ -134,13 +134,13 @@
             document.getElementById("wktStringTextArea").style.backgroundColor = "";
         };
 
-        function plotWKT(data) {
+        function plotWKT(apiData) {
             var f2;
 
-            if (data.airpdata == [])
+            if (apiData.airpdata == [])
                 return;
             try {
-                f2 = format.readFeature(data.airpdata);
+                f2 = format.readFeature(apiData.airpdata);
             } catch (err) { }
 
             features.clear();
@@ -171,13 +171,13 @@
             map.getView().fit(extent, map.getSize());
         }
 
-        function pKT2(data) {
+        function pKT2(apiData) {
             var f1;
 
-            if (data.aps[0].location == [])
+            if (apiData.aps[0].location == [])
                 return;
             try {
-                f1 = format.readFeature(data.aps[0].location);
+                f1 = format.readFeature(apiData.aps[0].location);
             } catch (err) { }
 
             if (f1) {
@@ -249,7 +249,6 @@
             <div id="bottom">
                 inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
             </div>
-    
     <script>
         var tbl = new Vue({
             el: '#tbl',
@@ -268,7 +267,16 @@
             }
         })
     </script>
-    
+        --->
+    <script>
+        var tbl = new Vue({
+            el: '#tbl',
+            data: {
+                ary: []
+            },
+        })
+    </script>
+
     <div id="example">
         <form action="javascript:void(0);">
             <button v-on:click="dosomething">Add 1</button>
@@ -296,6 +304,6 @@
         })
     </script>
     --->
-</body >
+</body>
 
 </html >
