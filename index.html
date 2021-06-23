@@ -122,7 +122,7 @@
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
             apiData = $.getJSON(apiUrl, data => { console.log(data); });
-            ary = data.aps;
+            ary = apiData.aps;
             plotWKT(apiData);
         }
         // from CY
