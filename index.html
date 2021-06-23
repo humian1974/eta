@@ -121,10 +121,14 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            apiData = $.getJSON(apiUrl, data => { console.log(data); });
-            console.log(apiData);
+            $.getJSON(apiUrl, data => {
+                console.log(data);
+                apiData = data;
+                ary = data.aps;
+            });
+            console.log("apidata:" + apiData);
             ary = apiData.aps;
-            console.log(ary);
+            console.log("ary:" + ary);
             plotWKT(apiData);
         }
         // from CY
