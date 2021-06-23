@@ -40,6 +40,8 @@
         var features = new ol.Collection();
         var format = new ol.format.WKT();
         var current_shape = "point";
+        var apiData;
+        var ary;
 
         var fill = new ol.style.Fill({
             color: 'rgba(167, 122, 210, 0.2)'
@@ -120,9 +122,11 @@
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
             $.getJSON(apiUrl, data => {
-                //console.log(data);
-                plotWKT(data);
+                console.log(data);
+                apiData = data;
+                ary = data.aps;
             });
+            plotWKT(apiData);
         }
         // from CY
         function restoreDefaultColors() {
@@ -245,7 +249,7 @@
             <div id="bottom">
                 inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
             </div>
-    -->
+    
     <script>
         var tbl = new Vue({
             el: '#tbl',
@@ -264,7 +268,7 @@
             }
         })
     </script>
-    <!---
+    
     <div id="example">
         <form action="javascript:void(0);">
             <button v-on:click="dosomething">Add 1</button>
