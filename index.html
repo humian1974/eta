@@ -120,7 +120,9 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            $.getJSON(apiUrl, apiData);
+            $.getJSON(apiUrl, function (result) {
+                apiData = result;
+            });
             console.log(apiData);
             plotWKT(apiData);
         }
