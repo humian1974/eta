@@ -41,7 +41,6 @@
         var format = new ol.format.WKT();
         var current_shape = "point";
         var apiData;
-        var multipoint;
         var ary;
 
         var fill = new ol.style.Fill({
@@ -132,7 +131,10 @@
             */
 
             apiData = $.getJSON( apiUrl, function (data) {
-                return function() {
+                console.log("data:" + data);
+                ary = data.aps;
+                multipoint = data.airpdata;
+                return function () {
                     return data;
                 }
             }); 
