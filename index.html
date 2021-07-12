@@ -137,9 +137,10 @@
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
                 console.log("apidata:" + apiData);
-                plotWKT(apiData);
+                plotWKT(multipoint);
+                $('#tbl').load();
                 return function () {
-                    return data;
+                    return data.responseJSON;
                 }
             }); 
         }
