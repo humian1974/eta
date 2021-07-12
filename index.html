@@ -121,7 +121,7 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            apiData = $.getJSON(apiUrl);
+            apiData = $.getJSON(apiUrl).responseJSON;
             console.log("apidata:" + apiData);
             ary = apiData.aps;
             console.log("ary:" + ary);
