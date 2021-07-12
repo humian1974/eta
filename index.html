@@ -133,18 +133,15 @@
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
                 ary = data.aps;
+                console.log("ary:" + ary);
                 multipoint = data.airpdata;
+                console.log("multipoint:" + multipoint);
+                console.log("apidata:" + apiData);
+                plotWKT(apiData);
                 return function () {
                     return data;
                 }
             }); 
-
-            multipoint = apiData.responseJSON;
-            console.log("apidata:" + apiData);
-            console.log("multipoint:" + multipoint);
-            ary = apiData.aps;
-            console.log("ary:" + ary);
-            plotWKT(apiData);
         }
         // from CY
         function restoreDefaultColors() {
@@ -287,6 +284,7 @@
     </script>
         --->
     <script>
+        console.log("tbl ary:" + ary);
         var tbl = new Vue({
             el: '#tbl',
             data: {
