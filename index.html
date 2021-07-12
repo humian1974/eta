@@ -121,15 +121,20 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            /*
-            apiData = $.getJSON(apiUrl, data => {
+
+            $('#tbl').load(apiUrl, function (data) {
                 console.log("data:" + data);
+                ary = data.aps;
+                console.log("ary:" + ary);
+                multipoint = data.airpdata;
+                console.log("multipoint:" + multipoint);
+                console.log("apidata:" + apiData);
+                plotWKT(multipoint);
                 return function () {
-                    return data;
+                    return ary;
                 }
             });
-            */
-
+/*
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
                 ary = data.aps;
@@ -143,6 +148,7 @@
                     return data.responseJSON;
                 }
             }); 
+*/
         }
         // from CY
         function restoreDefaultColors() {
