@@ -41,6 +41,7 @@
         var format = new ol.format.WKT();
         var current_shape = "point";
         var apiData;
+        var multipoint;
         var ary;
 
         var fill = new ol.style.Fill({
@@ -121,8 +122,10 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            apiData = $.getJSON(apiUrl).responseJSON;
+            apiData = $.getJSON(apiUrl);
+            multipoint = apiData.responseJSON;
             console.log("apidata:" + apiData);
+            console.log("multipoint:" + multipoint);
             ary = apiData.aps;
             console.log("ary:" + ary);
             plotWKT(apiData);
