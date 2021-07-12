@@ -150,13 +150,13 @@
             document.getElementById("wktStringTextArea").style.backgroundColor = "";
         };
 
-        function plotWKT(apiData) {
+        function plotWKT(points) {
             var f2;
 
-            if (apiData.airpdata == [])
+            if (points == [])
                 return;
             try {
-                f2 = format.readFeature(apiData.airpdata);
+                f2 = format.readFeature(points);
             } catch (err) { }
 
             features.clear();
@@ -187,13 +187,13 @@
             map.getView().fit(extent, map.getSize());
         }
 
-        function pKT2(apiData) {
+        function pKT2(point) {
             var f1;
 
-            if (apiData.aps[0].location == [])
+            if (point.location == [])
                 return;
             try {
-                f1 = format.readFeature(apiData.aps[0].location);
+                f1 = format.readFeature(point.location);
             } catch (err) { }
 
             if (f1) {
