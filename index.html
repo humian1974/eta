@@ -141,7 +141,7 @@
 
             apiData = JSON.parse(JSON.stringify($.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
-                ary = strfydata.aps;
+                ary = data.aps;
                 console.log("ary:" + ary);
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
