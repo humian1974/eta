@@ -141,16 +141,18 @@
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
-                ary = data.aps;
+                var strfydata = JSON.parse(JSON.stringify(data));
+                console.log("strfydata:" + strfydata);
+                ary = strfydata.aps;
                 console.log("ary:" + ary);
-                multipoint = data.airpdata;
+                multipoint = strfydata.airpdata;
                 console.log("multipoint:" + multipoint);
                 plotWKT(multipoint);
 //                $("#tbl").load(window.location.href + " #tbl" );
                 tbl.arrey = ary;
                 console.log("apiData b4:" + apiData);
                 return function () {
-                    return data;
+                    return strfydata;
                 }
             }); 
             console.log("apiData aft:" + apiData);
