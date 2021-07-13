@@ -121,21 +121,23 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-
 /*
-            $('#tbl').load(apiUrl, function (data) {
+            apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
                 ary = data.aps;
                 console.log("ary:" + ary);
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
-                console.log("apidata:" + apiData);
                 plotWKT(multipoint);
+                tbl.arrey = ary;
+                console.log("apiData b4:" + apiData);
                 return function () {
-                    return ary;
+                    return data;
                 }
             });
+            console.log("apiData aft:" + apiData);
 */
+
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
@@ -268,31 +270,9 @@
     --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="pKT2()">Plot point</button>
+        <button type="button" class="btn btn-primary" onclick="pKT2(ary[1])">Plot point</button>
     </div>
-    <!---
-            <div id="bottom">
-                inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
-            </div>
-    <script>
-        var tbl = new Vue({
-            el: '#tbl',
-            data: {
-                ary: []
-            },
-            mounted: function () {
-                axios.get('/api/ap-data')
-                    .then(response => {
-                        this.ary = response.data.aps;
-                        console.log(response);
-                    })
-                    .catch(response => {
-                        console.log(error);
-                    });
-            }
-        })
-    </script>
-        --->
+
     <script>
         console.log("tbl ary:" + ary);
         var tbl = new Vue({
@@ -306,34 +286,6 @@
         })
     </script>
 
-    <!--
-        <div id="example">
-            <form action="javascript:void(0);">
-                <button v-on:click="dosomething">Add 1</button>
-                {{ counter }} {{ message }}
-            </form>
-        </div>
-
-        <script>
-            var places = ['World', 'America', 'Europe', 'Asia']
-            var object = {
-                message: 'Hello world!',
-                counter: 0
-            }
-            new Vue({
-                el: '#example',
-                data: object,
-                methods: {
-                    dosomething: function (event) {
-                        // `this` inside methods points to the Vue instance
-                        // `event` is the native DOM event
-                        // alert(event.target.tagName);
-                        pKT2(data);
-                    }
-                }
-            })
-        </script>
-        --->
 </body>
 
 </html >
