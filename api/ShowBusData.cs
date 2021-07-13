@@ -28,8 +28,8 @@ namespace ShowBusData
             int count = 0;
             char initial = '0';
 
-            Int32.TryParse(req.Query["count"], out count);
-            Char.TryParse(req.Query["initial"], out initial);
+            Int32.TryParse(req.Query["c"], out count);
+            Char.TryParse(req.Query["i"], out initial);
             
             using(var conn = new SqlConnection(AZURE_CONN_STRING))
             {

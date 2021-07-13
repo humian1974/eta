@@ -122,23 +122,6 @@
             const count = params.get('c');
             const initial = params.get('i');
             const apiUrl = `/api/ap-data?c=${count}&i=${initial}`;
-/*
-            apiData = $.getJSON( apiUrl, function (data) {
-                console.log("data:" + data);
-                ary = data.aps;
-                console.log("ary:" + ary);
-                multipoint = data.airpdata;
-                console.log("multipoint:" + multipoint);
-                plotWKT(multipoint);
-                tbl.arrey = ary;
-                console.log("apiData b4:" + apiData);
-                return function () {
-                    return data;
-                }
-            });
-            console.log("apiData aft:" + apiData);
-*/
-
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
