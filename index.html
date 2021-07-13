@@ -38,8 +38,11 @@
         var typeSelect;
         var draw;
         var features = new ol.Collection();
+        var features2 = new ol.Collection();
         var format = new ol.format.WKT();
         var current_shape = "point";
+        var apiData;
+        var ary;
 
         var fill = new ol.style.Fill({
             color: 'rgba(167, 122, 210, 0.2)'
@@ -119,24 +122,47 @@
             const count = params.get('count');
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-            $.getJSON(apiUrl, data => {
-                //console.log(data);
-                plotWKT(data);
+/*
+            apiData = $.getJSON( apiUrl, function (data) {
+                console.log("data:" + data);
+                ary = data.aps;
+                console.log("ary:" + ary);
+                multipoint = data.airpdata;
+                console.log("multipoint:" + multipoint);
+                plotWKT(multipoint);
+                tbl.arrey = ary;
+                console.log("apiData b4:" + apiData);
+                return function () {
+                    return data;
+                }
             });
-        }
-        // from CY
-        function restoreDefaultColors() {
-            document.getElementById("wktStringTextArea").style.borderColor = "";
-            document.getElementById("wktStringTextArea").style.backgroundColor = "";
-        };
+            console.log("apiData aft:" + apiData);
+*/
 
-        function plotWKT(data) {
+
+            apiData = $.getJSON( apiUrl, function (data) {
+                console.log("data:" + data);
+                ary = data.aps;
+                console.log("ary:" + ary);
+                multipoint = data.airpdata;
+                console.log("multipoint:" + multipoint);
+                plotWKT(multipoint);
+                tbl.arrey = ary;
+                console.log("apiData b4:" + apiData);
+                return function () {
+                    return data;
+                }
+            }); 
+            console.log("apiData aft:" + apiData);
+        }
+
+        function plotWKT(points) {
             var f2;
 
-            if (data.airpdata == [])
+            if (points == [])
                 return;
             try {
-                f2 = format.readFeature(data.airpdata);
+                f2 = format.readFeature(points);
             } catch (err) { }
 
             features.clear();
@@ -167,18 +193,18 @@
             map.getView().fit(extent, map.getSize());
         }
 
-        function pKT2(data) {
+        function pKT2(point) {
             var f1;
 
-            if (data.aps[0].location == [])
+            if (point.location == [])
                 return;
             try {
-                f1 = format.readFeature(data.aps[0].location);
+                f1 = format.readFeature(point.location);
             } catch (err) { }
 
             if (f1) {
                 f1.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                features.push(f1);
+                features2.push(f1);
             }
 
             vector2 = new ol.layer.Vector({
@@ -198,8 +224,17 @@
             });
             selectGeom(current_shape);
             map.addLayer(vector);
-            document.getElementById("wktStringTextArea").value = "";
-            restoreDefaultColors();
+        }
+
+        function clearMap2() {
+            map.removeLayer(vector2);
+            features2.clear();
+            vector2 = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: features2 }),
+                style: styles2
+            });
+            selectGeom(current_shape);
+            map.addLayer(vector2);
         }
 
     </script>
@@ -222,11 +257,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt, index in ary">
-                    <th scope="row">{{ index +1 }}</th>
-                    <td>{{apt.icao}}</td>
-                    <td>{{apt.rwy}}</td>
-                    <td>{{apt.elevation}}</td>
+                <tr v-for="apt, index in arrey">
+                        <th scope="row">{{ index +1 }}</th>
+                        <td><a v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">{{apt.icao}}</a></td>
+                        <td>{{apt.rwy}}</td>
+                        <td>{{apt.elevation}}</td>
                 </tr>
             </tbody>
         </table>
@@ -239,59 +274,30 @@
     --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="pKT2()">Plot point</button>
-    </div>
-    <!---
-            <div id="bottom">
-                inspired by Clyde D'Cruz https://github.com/clydedacruz/openstreetmap-wkt-playground
-            </div>
-    -->
-    <script>
-        var tbl = new Vue({
-            el: '#tbl',
-            data: {
-                ary: []
-            },
-            mounted: function () {
-                axios.get('/api/ap-data')
-                    .then(response => {
-                        this.ary = response.data.aps;
-                        console.log(response);
-                    })
-                    .catch(response => {
-                        console.log(error);
-                    });
-            }
-        })
-    </script>
-    <!---
-    <div id="example">
-        <form action="javascript:void(0);">
-            <button v-on:click="dosomething">Add 1</button>
-            {{ counter }} {{ message }}
-        </form>
+        <button type="button" class="btn btn-primary" onclick="pKT2(JSON.parse(JSON.stringify(ary[1])))">Plot point</button>
     </div>
 
     <script>
-        var places = ['World', 'America', 'Europe', 'Asia']
-        var object = {
-            message: 'Hello world!',
-            counter: 0
-        }
-        new Vue({
-            el: '#example',
-            data: object,
+        console.log("tbl ary:" + ary);
+        var tbl = new Vue({
+            el: '#tbl',
+            data: {
+                arrey: []
+            },
+            mounted: function () {
+                this.arrey = ary;
+            },
             methods: {
-                dosomething: function (event) {
-                    // `this` inside methods points to the Vue instance
-                    // `event` is the native DOM event
-                    // alert(event.target.tagName);
-                    pKT2(data);
+                mouseover: function () {
+                    pKT2(JSON.parse(JSON.stringify(ary[1])));
+                },
+                mouseleave: function () {
+                    clearMap2();
                 }
             }
         })
     </script>
-    --->
-</body >
+
+</body>
 
 </html >
