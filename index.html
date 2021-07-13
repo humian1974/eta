@@ -145,7 +145,8 @@
                 console.log("multipoint:" + multipoint);
                 console.log("apidata:" + apiData);
                 plotWKT(multipoint);
-                $("#tbl").load(window.location.href + " #tbl" );
+//                $("#tbl").load(window.location.href + " #tbl" );
+                $("#tbl").load(ary);
                 return function () {
                     return data;
                 }
@@ -257,18 +258,6 @@
                 </tr>
             </tbody>
         </table>
-        <script>
-            console.log("tbl ary:" + ary);
-            var tbl = new Vue({
-                el: '#tbl',
-                data: {
-                    arrey: []
-                },
-                mounted: function () {
-                    this.arrey = ary;
-                }
-            })
-        </script>
     </div>
     <!-- from CY
         <div class="span12" style="padding: 10px; border:0px">
@@ -303,35 +292,47 @@
         })
     </script>
         --->
-
-<!--
-    <div id="example">
-        <form action="javascript:void(0);">
-            <button v-on:click="dosomething">Add 1</button>
-            {{ counter }} {{ message }}
-        </form>
-    </div>
-
     <script>
-        var places = ['World', 'America', 'Europe', 'Asia']
-        var object = {
-            message: 'Hello world!',
-            counter: 0
-        }
-        new Vue({
-            el: '#example',
-            data: object,
-            methods: {
-                dosomething: function (event) {
-                    // `this` inside methods points to the Vue instance
-                    // `event` is the native DOM event
-                    // alert(event.target.tagName);
-                    pKT2(data);
-                }
+        console.log("tbl ary:" + ary);
+        var tbl = new Vue({
+            el: '#tbl',
+            data: {
+                arrey: []
+            },
+            mounted: function () {
+                this.arrey = ary;
             }
         })
     </script>
-    --->
+
+    <!--
+        <div id="example">
+            <form action="javascript:void(0);">
+                <button v-on:click="dosomething">Add 1</button>
+                {{ counter }} {{ message }}
+            </form>
+        </div>
+
+        <script>
+            var places = ['World', 'America', 'Europe', 'Asia']
+            var object = {
+                message: 'Hello world!',
+                counter: 0
+            }
+            new Vue({
+                el: '#example',
+                data: object,
+                methods: {
+                    dosomething: function (event) {
+                        // `this` inside methods points to the Vue instance
+                        // `event` is the native DOM event
+                        // alert(event.target.tagName);
+                        pKT2(data);
+                    }
+                }
+            })
+        </script>
+        --->
 </body>
 
 </html >
