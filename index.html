@@ -122,6 +122,7 @@
             const initial = params.get('initial');
             const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
 
+/*
             $('#tbl').load(apiUrl, function (data) {
                 console.log("data:" + data);
                 ary = data.aps;
@@ -134,7 +135,8 @@
                     return ary;
                 }
             });
-/*
+*/
+
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
                 ary = data.aps;
@@ -143,12 +145,11 @@
                 console.log("multipoint:" + multipoint);
                 console.log("apidata:" + apiData);
                 plotWKT(multipoint);
-                $('#tbl').load();
+                $("#tbl").load(window.location.href + "#tbl" );
                 return function () {
                     return data.responseJSON;
                 }
             }); 
-*/
         }
         // from CY
         function restoreDefaultColors() {
