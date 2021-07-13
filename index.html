@@ -144,8 +144,8 @@
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
                 plotWKT(multipoint);
-                tbl.arrey = ary;
-                $("#tbl").load(window.location.href + " #tbl" );
+//                $("#tbl").load(window.location.href + " #tbl" );
+                $("#tbl").load(tbl);
                 console.log("apiData b4:" + apiData);
                 return function () {
                     return data;
