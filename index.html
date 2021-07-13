@@ -257,9 +257,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt, index in arrey">
+                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in arrey">
                         <th scope="row">{{ index +1 }}</th>
-                        <td><a v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">{{apt.icao}}</a></td>
+                        <td>{{apt.icao}}</td>
                         <td>{{apt.rwy}}</td>
                         <td>{{apt.elevation}}</td>
                 </tr>
@@ -288,10 +288,10 @@
                 this.arrey = ary;
             },
             methods: {
-                mouseover: function () {
-                    pKT2(JSON.parse(JSON.stringify(ary[1])));
+                mouseover (i) {
+                    pKT2(JSON.parse(JSON.stringify(ary[i])));
                 },
-                mouseleave: function () {
+                mouseleave (i) {
                     clearMap2();
                 }
             }
