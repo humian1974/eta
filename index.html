@@ -139,22 +139,19 @@
 */
 
 
-            apiData = $.getJSON( apiUrl, function (data) {
+            apiData = JSON.parse(JSON.stringify($.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
-                var strfydata = JSON.parse(JSON.stringify(data));
-                console.log("strfydata:" + strfydata);
                 ary = strfydata.aps;
                 console.log("ary:" + ary);
-                multipoint = strfydata.airpdata;
+                multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
                 plotWKT(multipoint);
-//                $("#tbl").load(window.location.href + " #tbl" );
                 tbl.arrey = ary;
                 console.log("apiData b4:" + apiData);
                 return function () {
-                    return strfydata;
+                    return data;
                 }
-            }); 
+            }))); 
             console.log("apiData aft:" + apiData);
         }
         // from CY
@@ -271,7 +268,7 @@
     --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="pKT2(ary[1])">Plot point</button>
+        <button type="button" class="btn btn-primary" onclick="pKT2(apiData.aps[1])">Plot point</button>
     </div>
 
     <script>
