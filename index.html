@@ -145,7 +145,7 @@
                 console.log("multipoint:" + multipoint);
                 plotWKT(multipoint);
 //                $("#tbl").load(window.location.href + " #tbl" );
-                $("#tbl").load(tbl);
+                tbl.arrey = ary;
                 console.log("apiData b4:" + apiData);
                 return function () {
                     return data;
