@@ -147,7 +147,7 @@
                 plotWKT(multipoint);
                 $("#tbl").load(window.location.href + " #tbl" );
                 return function () {
-                    return data.responseJSON;
+                    return data;
                 }
             }); 
         }
@@ -249,11 +249,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="apt, index in ary">
+                <tr v-for="aps, index in ary">
                     <th scope="row">{{ index +1 }}</th>
-                    <td>{{apt.icao}}</td>
-                    <td>{{apt.rwy}}</td>
-                    <td>{{apt.elevation}}</td>
+                    <td>{{aps.icao}}</td>
+                    <td>{{aps.rwy}}</td>
+                    <td>{{aps.elevation}}</td>
                 </tr>
             </tbody>
         </table>
