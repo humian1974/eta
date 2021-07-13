@@ -257,6 +257,18 @@
                 </tr>
             </tbody>
         </table>
+        <script>
+            console.log("tbl ary:" + ary);
+            var tbl = new Vue({
+                el: '#tbl',
+                data: {
+                    arrey: []
+                },
+                mounted: function () {
+                    this.arrey = ary;
+                }
+            })
+        </script>
     </div>
     <!-- from CY
         <div class="span12" style="padding: 10px; border:0px">
@@ -291,18 +303,7 @@
         })
     </script>
         --->
-    <script>
-        console.log("tbl ary:" + ary);
-        var tbl = new Vue({
-            el: '#tbl',
-            data: {
-                arrey: []
-            },
-            mounted: function () {
-                this.arrey = ary;
-            }
-        })
-    </script>
+
 <!--
     <div id="example">
         <form action="javascript:void(0);">
