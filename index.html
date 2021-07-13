@@ -155,11 +155,6 @@
             }); 
             console.log("apiData aft:" + apiData);
         }
-        // from CY
-        function restoreDefaultColors() {
-            document.getElementById("wktStringTextArea").style.borderColor = "";
-            document.getElementById("wktStringTextArea").style.backgroundColor = "";
-        };
 
         function plotWKT(points) {
             var f2;
@@ -229,7 +224,17 @@
             });
             selectGeom(current_shape);
             map.addLayer(vector);
-            restoreDefaultColors();
+        }
+
+        function clearMap2() {
+            map.removeLayer(vector2);
+            features2.clear();
+            vector2 = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: features2 }),
+                style: styles2
+            });
+            selectGeom(current_shape);
+            map.addLayer(vector2);
         }
 
     </script>
@@ -287,7 +292,7 @@
                     pKT2(JSON.parse(JSON.stringify(ary[1])));
                 },
                 mouseleave: function () {
-                    pkT2(JSON.parse(JSON.stringify(ary[1])));
+                    clearMap2();
                 }
             }
         })
