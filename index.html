@@ -241,7 +241,7 @@
 </head>
 
 <body onload="init()">
-    <div class="container-fluid" style="padding:2px;border:4px;height:100%">
+    <div class="container-fluid" style="padding:2px;border:4px;height:70%">
         <div class="span12">
             <div id="map" class="map" style="z-index: 0"></div>
         </div>
@@ -260,6 +260,7 @@
                 <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in arrey">
                         <th scope="row">{{ index +1 }}</th>
                         <td>{{apt.icao}}</td>
+                        <td>{{apt.city}}</td>
                         <td>{{apt.rwy}}</td>
                         <td>{{apt.elevation}}</td>
                 </tr>
