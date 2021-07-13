@@ -253,10 +253,10 @@
             </thead>
             <tbody>
                 <tr v-for="apt, index in arrey">
-                    <th scope="row">{{ index +1 }}</th>
-                    <td>{{apt.icao}}</td>
-                    <td>{{apt.rwy}}</td>
-                    <td>{{apt.elevation}}</td>
+                        <th scope="row">{{ index +1 }}</th>
+                        <td><a v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">{{apt.icao}}</a></td>
+                        <td>{{apt.rwy}}</td>
+                        <td>{{apt.elevation}}</td>
                 </tr>
             </tbody>
         </table>
@@ -281,6 +281,14 @@
             },
             mounted: function () {
                 this.arrey = ary;
+            },
+            methods: {
+                mouseover: function () {
+                    pKT2(JSON.parse(JSON.stringify(ary[1])));
+                },
+                mouseleave: function () {
+                    pkT2(JSON.parse(JSON.stringify(ary[1])));
+                }
             }
         })
     </script>
