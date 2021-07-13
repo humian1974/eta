@@ -249,11 +249,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="aps, index in ary">
+                <tr v-for="apt, index in arrey">
                     <th scope="row">{{ index +1 }}</th>
-                    <td>{{aps.icao}}</td>
-                    <td>{{aps.rwy}}</td>
-                    <td>{{aps.elevation}}</td>
+                    <td>{{apt.icao}}</td>
+                    <td>{{apt.rwy}}</td>
+                    <td>{{apt.elevation}}</td>
                 </tr>
             </tbody>
         </table>
@@ -296,8 +296,11 @@
         var tbl = new Vue({
             el: '#tbl',
             data: {
-                ary: []
+                arrey: []
             },
+            mounted: function () {
+                this.arrey = ary;
+            }
         })
     </script>
 <!--
