@@ -143,14 +143,15 @@
                 console.log("ary:" + ary);
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
-                console.log("apidata:" + apiData);
                 plotWKT(multipoint);
 //                $("#tbl").load(window.location.href + " #tbl" );
-                $("#tbl").load(ary);
+                $("#tbl").load(tbl);
+                console.log("apiData b4:" + apiData);
                 return function () {
                     return data;
                 }
             }); 
+            console.log("apiData aft:" + apiData);
         }
         // from CY
         function restoreDefaultColors() {
