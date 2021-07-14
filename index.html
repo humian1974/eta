@@ -19,6 +19,19 @@
             text-align: center;
         }
     </style>
+    <style>
+        .map {
+            height: 500px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 0;
+        }
+
+        .table{
+            margin-top: 510px;
+        }
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://unpkg.com/vue"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -119,26 +132,9 @@
             // Sample URL:
             // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
-            const count = params.get('count');
-            const initial = params.get('initial');
-            const apiUrl = `/api/ap-data?count=${count}&initial=${initial}`;
-/*
-            apiData = $.getJSON( apiUrl, function (data) {
-                console.log("data:" + data);
-                ary = data.aps;
-                console.log("ary:" + ary);
-                multipoint = data.airpdata;
-                console.log("multipoint:" + multipoint);
-                plotWKT(multipoint);
-                tbl.arrey = ary;
-                console.log("apiData b4:" + apiData);
-                return function () {
-                    return data;
-                }
-            });
-            console.log("apiData aft:" + apiData);
-*/
-
+            const count = params.get('c');
+            const initial = params.get('i');
+            const apiUrl = `/api/ap-data?c=${count}&i=${initial}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
@@ -241,9 +237,9 @@
 </head>
 
 <body onload="init()">
-    <div class="container-fluid" style="padding:2px;border:4px;height:100%">
+    <div class="container-fluid" style="padding: 2px; border: 4px; height: 100%;">
         <div class="span12">
-            <div id="map" class="map" style="z-index: 0"></div>
+            <div id="map" class="map"></div>
         </div>
     </div>
     <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
@@ -252,6 +248,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">ICAO</th>
+                    <th scope="col">city</th>
+                    <th scope="col">country</th>
                     <th scope="col">runway lenth</th>
                     <th scope="col">elevation</th>
                 </tr>
@@ -260,6 +258,8 @@
                 <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in arrey">
                         <th scope="row">{{ index +1 }}</th>
                         <td>{{apt.icao}}</td>
+                        <td>{{apt.city}}</td>
+                        <td>{{apt.country}}</td>
                         <td>{{apt.rwy}}</td>
                         <td>{{apt.elevation}}</td>
                 </tr>
@@ -274,7 +274,7 @@
     --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="pKT2(JSON.parse(JSON.stringify(ary[1])))">Plot point</button>
+        <button type="button" class="btn btn-primary" onclick="plotWKT(multipoint)">Plot</button>
     </div>
 
     <script>
