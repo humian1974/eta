@@ -32,6 +32,8 @@ namespace ShowBusData
 
             Int32.TryParse(req.Query["c"], out count);
             Char.TryParse(req.Query["i"], out initial);
+            if (initial == '\0') initial = '%';
+            if (count == 0) count = 10;
             switch (s_sort = req.Query["s"])
             {
                 case "rd":
