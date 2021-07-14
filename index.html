@@ -134,7 +134,8 @@
             const params = new URLSearchParams(location.search);
             const count = params.get('c');
             const initial = params.get('i');
-            const apiUrl = `/api/ap-data?c=${count}&i=${initial}`;
+            const sort = params.get('s');
+            const apiUrl = `/api/ap-data?c=${count}&i=${initial}&s=${sort}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
