@@ -23,6 +23,12 @@
         .map {
             height: 500px;
             width: 100%;
+            position: fixed;
+            top: 0
+        }
+
+        .tbl{
+            margin-top: 530px;
         }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -232,10 +238,10 @@
 <body onload="init()">
     <div class="container-fluid" style="padding: 2px; border: 4px; height: 100%;">
         <div class="span12">
-            <div id="map" class="map" style="position: fixed; top: 0"></div>
+            <div id="map" class="map"></div>
         </div>
     </div>
-    <div class="table table-hover table-bordered table-sm mt-4" id="tbl" style="margin-top: 530px;">
+    <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
         <table class="table">
             <thead>
                 <tr>
