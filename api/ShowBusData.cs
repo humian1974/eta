@@ -27,8 +27,12 @@ namespace ShowBusData
         {                              
             int count = 10;
             char initial = '%';
-            string s_sort = "rd";
-            string sort = "elevation desc";
+            string s_sort = "rd", sort = "elevation desc";
+            string s_city = req.Query["city"], city = "%";
+            string s_cnty = req.Query["cnty"], cnty = "%";
+
+            if (s_city != null) city = s_city;
+            if (s_cnty != null) cnty = s_cnty;
 
             Int32.TryParse(req.Query["c"], out count);
             Char.TryParse(req.Query["i"], out initial);
@@ -57,7 +61,9 @@ namespace ShowBusData
                     new {
                         @countn = count,
                         @initchar = initial,
-                        @sort = sort
+                        @sort = sort,
+                        @city = city,
+                        @country = cnty
                     }, commandType: CommandType.StoredProcedure);                
                 
                 return new OkObjectResult(JObject.Parse(result));

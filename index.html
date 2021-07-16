@@ -135,7 +135,9 @@
             const count = params.get('c');
             const initial = params.get('i');
             const sort = params.get('s');
-            const apiUrl = `/api/ap-data?c=${count}&i=${initial}&s=${sort}`;
+            const a_city = params.get('city');
+            const a_cnty = params.get('cnty');
+            const apiUrl = `/api/ap-data?c=${count}&i=${initial}&s=${sort}&city=${a_city}&cnty=${a_cnty}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
