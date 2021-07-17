@@ -31,9 +31,9 @@ namespace ShowBusData
             string s_city = req.Query["city"], city = "%";
             string s_cnty = req.Query["cnty"], cnty = "%";
 
-            if (s_icao != null) icao = s_icao;
-            if (s_city != null) city = s_city;
-            if (s_cnty != null) cnty = s_cnty;
+            if (s_icao != null & s_icao != "null") icao = s_icao;
+            if (s_city != null & s_city != "null") city = s_city;
+            if (s_cnty != null & s_cnty != "null") cnty = s_cnty;
 
             Int32.TryParse(req.Query["c"], out count);
             if (count == 0) count = 10;
