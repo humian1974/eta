@@ -133,11 +133,11 @@
             // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
             const count = params.get('c');
-            const initial = params.get('i');
+            const icao = params.get('i');
             const sort = params.get('s');
             const a_city = params.get('city');
             const a_cnty = params.get('cnty');
-            const apiUrl = `/api/ap-data?c=${count}&i=${initial}&s=${sort}&city=${a_city}&cnty=${a_cnty}`;
+            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${a_city}&cnty=${a_cnty}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);

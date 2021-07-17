@@ -26,18 +26,18 @@ namespace ShowBusData
         public static async Task<IActionResult> ShowBusData([HttpTrigger("get", Route = "ap-data")] HttpRequest req, ILogger log)
         {                              
             int count = 10;
-            char initial = '%';
             string s_sort = "rd", sort = "elevation desc";
+            string s_icao = req.Query["s"], icao = "%";
             string s_city = req.Query["city"], city = "%";
             string s_cnty = req.Query["cnty"], cnty = "%";
 
+            if (s_icao != null) icao = s_icao;
             if (s_city != null) city = s_city;
             if (s_cnty != null) cnty = s_cnty;
 
             Int32.TryParse(req.Query["c"], out count);
-            Char.TryParse(req.Query["i"], out initial);
-            if (initial == '\0') initial = '%';
             if (count == 0) count = 10;
+
             switch (s_sort = req.Query["s"])
             {
                 case "rd":
@@ -60,7 +60,7 @@ namespace ShowBusData
                     "web.GetairportData3", 
                     new {
                         @countn = count,
-                        @initchar = initial,
+                        @icao = icao,
                         @sort = sort,
                         @city = city,
                         @country = cnty
