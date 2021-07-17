@@ -27,7 +27,7 @@ namespace ShowBusData
         {                              
             int count = 10;
             string s_sort = "rd", sort = "elevation desc";
-            string s_icao = req.Query["s"], icao = "%";
+            string s_icao = req.Query["i"], icao = "%";
             string s_city = req.Query["city"], city = "%";
             string s_cnty = req.Query["cnty"], cnty = "%";
 
