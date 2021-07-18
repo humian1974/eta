@@ -97,22 +97,6 @@
             })
         ];
 
-        /* from CY
-        function addInteraction(shape) {
-            draw = new ol.interaction.Draw({
-                features: features,
-                type: /** @type {ol.geom.GeometryType} */ shape
-            });
-            map.addInteraction(draw);
-        }
-
-        function selectGeom(shape) {
-            current_shape = shape;
-            map.removeInteraction(draw);
-            addInteraction(shape);
-        }
-        */
-
         function init() {
             raster = new ol.layer.Tile({
                 source: new ol.source.OSM()
