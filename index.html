@@ -97,7 +97,7 @@
             })
         ];
 
-        // from CY
+        /* from CY
         function addInteraction(shape) {
             draw = new ol.interaction.Draw({
                 features: features,
@@ -106,12 +106,12 @@
             map.addInteraction(draw);
         }
 
-        // from CY
         function selectGeom(shape) {
             current_shape = shape;
             map.removeInteraction(draw);
             addInteraction(shape);
         }
+        */
 
         function init() {
             raster = new ol.layer.Tile({
@@ -127,8 +127,6 @@
                 })
             });
 
-            // Sample URL:
-            // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
             const count = params.get('c');
             const icao = params.get('i');
@@ -201,7 +199,7 @@
 
             if (f) {
                 f.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                features_point.push(f);
+                feature_point.push(f);
             }
 
             vector_point = new ol.layer.Vector({
@@ -219,7 +217,7 @@
                 source: new ol.source.Vector({ features: feature_group }),
                 style: style_group
             });
-            selectGeom(current_shape);
+//           selectGeom(current_shape);
             map.addLayer(vector_group);
         }
 
@@ -230,7 +228,7 @@
                 source: new ol.source.Vector({ features: feature_point }),
                 style: style_point
             });
-            selectGeom(current_shape);
+//            selectGeom(current_shape);
             map.addLayer(vector_point);
         }
 
