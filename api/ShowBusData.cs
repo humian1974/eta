@@ -15,21 +15,21 @@ using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace ShowBusData
+namespace GetAPdata // ShowBusData
 {    
-    public static class ShowBusDataMain
+    public static class GetAPdataMain // ShowBusDataMain
     {
         private static HttpClient httpClient = new HttpClient();
         private static readonly string AZURE_CONN_STRING = Environment.GetEnvironmentVariable("AzureSQLConnectionString");
 
-        [FunctionName("ShowBusData")]
-        public static async Task<IActionResult> ShowBusData([HttpTrigger("get", Route = "ap-data")] HttpRequest req, ILogger log)
+        [FunctionName("GetAPdata")]
+        public static async Task<IActionResult> GetAPdata([HttpTrigger("get", Route = "ap-data")] HttpRequest req, ILogger log)
         {                              
             int count = 10;
             string s_sort = "rd", sort = "elevation desc";
             string s_icao = req.Query["i"], icao = "%";
             string s_city = req.Query["city"], city = "%";
-            string s_cntry = req.Query["cnty"], cntry = "%";
+            string s_cntry = req.Query["cntry"], cntry = "%";
 
             if (s_icao != null & s_icao != "null") icao = s_icao;
             if (s_city != null & s_city != "null") city = s_city;
