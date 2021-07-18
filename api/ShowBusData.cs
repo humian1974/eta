@@ -29,11 +29,11 @@ namespace ShowBusData
             string s_sort = "rd", sort = "elevation desc";
             string s_icao = req.Query["i"], icao = "%";
             string s_city = req.Query["city"], city = "%";
-            string s_cnty = req.Query["cnty"], cnty = "%";
+            string s_cntry = req.Query["cnty"], cntry = "%";
 
             if (s_icao != null & s_icao != "null") icao = s_icao;
             if (s_city != null & s_city != "null") city = s_city;
-            if (s_cnty != null & s_cnty != "null") cnty = s_cnty;
+            if (s_cntry != null & s_cntry != "null") cntry = s_cntry;
 
             Int32.TryParse(req.Query["c"], out count);
             if (count == 0) count = 10;
@@ -63,7 +63,7 @@ namespace ShowBusData
                         @icao = icao,
                         @sort = sort,
                         @city = city,
-                        @country = cnty
+                        @country = cntry
                     }, commandType: CommandType.StoredProcedure);                
                 
                 return new OkObjectResult(JObject.Parse(result));
