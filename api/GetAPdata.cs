@@ -26,18 +26,16 @@ namespace GetAPdata // ShowBusData
         public static async Task<IActionResult> GetAPdata([HttpTrigger("get", Route = "ap-data")] HttpRequest req, ILogger log)
         {                              
             int count = 10;
-            string s_sort = "rd", sort = "elevation desc";
-            string s_icao = req.Query["i"], icao = "%";
-            string s_city = req.Query["city"], city = "%";
-            string s_cntry = req.Query["cntry"], cntry = "%";
-
-            if (s_icao != null & s_icao != "null") icao = s_icao;
-            if (s_city != null & s_city != "null") city = s_city;
-            if (s_cntry != null & s_cntry != "null") cntry = s_cntry;
-
             Int32.TryParse(req.Query["c"], out count);
             if (count < 1 | count >50) count = 10;
 
+            string icao = req.Query["i"], city = req.Query["city"], cntry = req.Query["cntry"];
+            if (icao == null | icao == "null") {icao = "%";} else {icao = icao.Substring(0,15);}
+            if (city == null | city == "null") {city = "%";} else {city = city.Substring(0,31);}
+            if (cntry == null | cntry == "null") {cntry = "%";} else {cntry = cntry.Substring(0,31);}
+
+
+            string s_sort = "rd", sort = "elevation desc";
             switch (s_sort = req.Query["s"])
             {
                 case "rd":
