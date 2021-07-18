@@ -15,9 +15,9 @@ using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace GetAPdata // ShowBusData
+namespace GetAPdata
 {    
-    public static class GetAPdataMain // ShowBusDataMain
+    public static class GetAPdataMain
     {
         private static HttpClient httpClient = new HttpClient();
         private static readonly string AZURE_CONN_STRING = Environment.GetEnvironmentVariable("AzureSQLConnectionString");
