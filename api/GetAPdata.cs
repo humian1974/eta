@@ -30,9 +30,9 @@ namespace GetAPdata // ShowBusData
             if (count < 1 | count >50) count = 10;
 
             string icao = req.Query["i"], city = req.Query["city"], cntry = req.Query["cntry"];
-            if (icao == null | icao == "null") {icao = "%";} else {icao = icao.Substring(0,15);}
-            if (city == null | city == "null") {city = "%";} else {city = city.Substring(0,31);}
-            if (cntry == null | cntry == "null") {cntry = "%";} else {cntry = cntry.Substring(0,31);}
+            if (icao == null | icao == "null") {icao = "%";} else if (icao.Length > 15) {icao = icao.Substring(0,15);}
+            if (city == null | city == "null") {city = "%";} else if (city.Length > 31) {city = city.Substring(0,31);}
+            if (cntry == null | cntry == "null") {cntry = "%";} else if (cntry.Length > 31) {cntry = cntry.Substring(0,31);}
 
 
             string s_sort = "rd", sort = "elevation desc";
