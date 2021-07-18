@@ -33,7 +33,8 @@
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://unpkg.com/vue"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js"></script>
+    //<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
@@ -117,19 +118,14 @@
             const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${city}&cntry=${cntry}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
-                console.log("data:" + data);
                 apiArray = data.aps;
-                console.log("apiArray:" + apiArray);
                 multipoint = data.airpdata;
-                console.log("multipoint:" + multipoint);
                 plotGrp(multipoint);
                 tbl.tbl_array = apiArray;
-                console.log("apiData b4:" + apiData);
                 return function () {
                     return data.aps;
                 }
             }); 
-            console.log("apiData aft:" + apiData);
         }
 
         function plotGrp(group) {
