@@ -36,7 +36,7 @@ namespace GetAPdata // ShowBusData
             if (s_cntry != null & s_cntry != "null") cntry = s_cntry;
 
             Int32.TryParse(req.Query["c"], out count);
-            if (count == 0) count = 10;
+            if (count < 1 | count >50) count = 10;
 
             switch (s_sort = req.Query["s"])
             {
