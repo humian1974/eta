@@ -265,3 +265,4 @@ __pycache__/
 *.pyc
 /api/*.exclude
 
+input.pptx
