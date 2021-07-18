@@ -53,7 +53,7 @@
         var format = new ol.format.WKT();
         var current_shape = "point";
         var apiData;
-        var ary;
+        var apiArray;
 
         var fill_group = new ol.style.Fill({
             color: 'rgba(167, 122, 210, 0.2)'
@@ -121,12 +121,12 @@
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
-                ary = data.aps;
+                apiArray = data.aps;
                 console.log("ary:" + ary);
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
                 plotGrp(multipoint);
-                tbl.arrey = ary;
+                tbl.tbl_array = apiArray;
                 console.log("apiData b4:" + apiData);
                 return function () {
                     return data;
@@ -193,7 +193,6 @@
             map.addLayer(vector_point);
         }
 
-        // from CY
         function clearMap_Group() {
             map.removeLayer(vector_group);
             feature_group.clear();
@@ -201,7 +200,6 @@
                 source: new ol.source.Vector({ features: feature_group }),
                 style: style_group
             });
-//           selectGeom(current_shape);
             map.addLayer(vector_group);
         }
 
@@ -212,7 +210,6 @@
                 source: new ol.source.Vector({ features: feature_point }),
                 style: style_point
             });
-//            selectGeom(current_shape);
             map.addLayer(vector_point);
         }
 
@@ -238,7 +235,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in arrey">
+                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
                         <th scope="row">{{ index +1 }}</th>
                         <td>{{apt.icao}}</td>
                         <td>{{apt.city}}</td>
@@ -249,30 +246,23 @@
             </tbody>
         </table>
     </div>
-    <!-- from CY
-        <div class="span12" style="padding: 10px; border:0px">
-            <textarea id="wktStringTextArea" class="form-control" rows="2" onclick="restoreDefaultColors()">
-            GEOMETRYCOLLECTION(POLYGON((89.4990234375 42.73410219406955,119.03027343750001 43.05604502521945,105.05566406250001 24.83061329183866,89.4990234375 42.73410219406955)),POINT(104.0888671875 34.79937020713594))
-          </textarea>
-    --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
         <button type="button" class="btn btn-primary" onclick="clearMap_Group()">Clear</button>
         <button type="button" class="btn btn-primary" onclick="plotGrp(multipoint)">Plot</button>
     </div>
 
     <script>
-        console.log("tbl ary:" + ary);
         var tbl = new Vue({
             el: '#tbl',
             data: {
-                arrey: []
+                tbl_array: []
             },
             mounted: function () {
-                this.arrey = ary;
+                this.tbl_array = apiArray;
             },
             methods: {
                 mouseover (i) {
-                    plotPnt(JSON.parse(JSON.stringify(ary[i])));
+                    plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
                 },
                 mouseleave (i) {
                     clearMap_Point();
