@@ -115,9 +115,9 @@
             const count = params.get('c');
             const icao = params.get('i');
             const sort = params.get('s');
-            const a_city = params.get('city');
-            const a_cnty = params.get('cnty');
-            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${a_city}&cnty=${a_cnty}`;
+            const city = params.get('city');
+            const cntry = params.get('cntry');
+            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${city}&cntry=${cntry}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
@@ -129,7 +129,7 @@
                 tbl.tbl_array = apiArray;
                 console.log("apiData b4:" + apiData);
                 return function () {
-                    return data;
+                    return data.aps;
                 }
             }); 
             console.log("apiData aft:" + apiData);
