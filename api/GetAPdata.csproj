@@ -1,10 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
-    <RootNamespace>ShowBusData</RootNamespace>
-    <AssemblyName>ShowBusData</AssemblyName>
+    <RootNamespace>GetAPdata</RootNamespace>
+    <AssemblyName>GetAPdata</AssemblyName>
     <UserSecretsId>6e411168-c629-497f-a624-9f8fcbcaef33</UserSecretsId>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="etaapi\**" />

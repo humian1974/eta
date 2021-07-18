@@ -18,8 +18,6 @@
             padding: 2px 0;
             text-align: center;
         }
-    </style>
-    <style>
         .map {
             height: 500px;
             width: 100%;
@@ -29,7 +27,7 @@
         }
 
         .table{
-            margin-top: 510px;
+            margin-top: 505px;
         }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -45,75 +43,55 @@
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
     <script type='text/javascript'>
         var raster;
-        var source;
-        var vector, vector2;
+        var vector_group, vector_point;
         var map;
-        var typeSelect;
-        var draw;
-        var features = new ol.Collection();
-        var features2 = new ol.Collection();
+        var feature_group = new ol.Collection();
+        var feature_point = new ol.Collection();
         var format = new ol.format.WKT();
-        var current_shape = "point";
         var apiData;
-        var ary;
+        var apiArray;
 
-        var fill = new ol.style.Fill({
+        var fill_group = new ol.style.Fill({
             color: 'rgba(167, 122, 210, 0.2)'
         });
 
-        var stroke = new ol.style.Stroke({
+        var stroke_group = new ol.style.Stroke({
             color: '#0404B4',
             width: 2
         });
 
-        var fill2 = new ol.style.Fill({
+        var fill_point = new ol.style.Fill({
             color: 'rgba(255, 0, 0, 0.2)'
         });
 
-        var stroke2 = new ol.style.Stroke({
+        var stroke_point = new ol.style.Stroke({
             color: '#ffff00',
             width: 2
         });
 
-        var styles = [
+        var style_group = [
             new ol.style.Style({
                 image: new ol.style.Circle({
-                    fill: fill,
-                    stroke: stroke,
+                    fill: fill_group,
+                    stroke: stroke_group,
                     radius: 5
                 }),
-                fill: fill,
-                stroke: stroke
+                fill: fill_group,
+                stroke: stroke_group
             })
         ];
 
-        var styles2 = [
+        var style_point = [
             new ol.style.Style({
                 image: new ol.style.Circle({
-                    fill: fill2,
-                    stroke: stroke2,
+                    fill: fill_point,
+                    stroke: stroke_point,
                     radius: 5
                 }),
-                fill: fill2,
-                stroke: stroke2
+                fill: fill_point,
+                stroke: stroke_point
             })
         ];
-
-        // from CY
-        function addInteraction(shape) {
-            draw = new ol.interaction.Draw({
-                features: features,
-                type: /** @type {ol.geom.GeometryType} */ shape
-            });
-            map.addInteraction(draw);
-        }
-
-        // from CY
-        function selectGeom(shape) {
-            current_shape = shape;
-            map.removeInteraction(draw);
-            addInteraction(shape);
-        }
 
         function init() {
             raster = new ol.layer.Tile({
@@ -129,55 +107,53 @@
                 })
             });
 
-            // Sample URL:
-            // http://localhost:3000/azure-static-web-app/client/index.html?rid=100113&gid=1
             const params = new URLSearchParams(location.search);
             const count = params.get('c');
             const icao = params.get('i');
             const sort = params.get('s');
-            const a_city = params.get('city');
-            const a_cnty = params.get('cnty');
-            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${a_city}&cnty=${a_cnty}`;
+            const city = params.get('city');
+            const cntry = params.get('cntry');
+            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${city}&cntry=${cntry}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 console.log("data:" + data);
-                ary = data.aps;
-                console.log("ary:" + ary);
+                apiArray = data.aps;
+                console.log("apiArray:" + apiArray);
                 multipoint = data.airpdata;
                 console.log("multipoint:" + multipoint);
-                plotWKT(multipoint);
-                tbl.arrey = ary;
+                plotGrp(multipoint);
+                tbl.tbl_array = apiArray;
                 console.log("apiData b4:" + apiData);
                 return function () {
-                    return data;
+                    return data.aps;
                 }
             }); 
             console.log("apiData aft:" + apiData);
         }
 
-        function plotWKT(points) {
-            var f2;
+        function plotGrp(group) {
+            var f;
 
-            if (points == [])
+            if (group == [])
                 return;
             try {
-                f2 = format.readFeature(points);
+                f = format.readFeature(group);
             } catch (err) { }
 
-            features.clear();
+            feature_group.clear();
 
-            if (f2) {
-                f2.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                features.push(f2);
+            if (f) {
+                f.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+                feature_group.push(f);
             }
 
-            vector = new ol.layer.Vector({
-                source: new ol.source.Vector({ features: features }),
-                style: styles
+            vector_group = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: feature_group }),
+                style: style_group
             });
-            map.addLayer(vector);
+            map.addLayer(vector_group);
 
-            derived_feature = f2;
+            derived_feature = f;
             extent = derived_feature.getGeometry().getExtent();
             minx = derived_feature.getGeometry().getExtent()[0];
             miny = derived_feature.getGeometry().getExtent()[1];
@@ -192,48 +168,45 @@
             map.getView().fit(extent, map.getSize());
         }
 
-        function pKT2(point) {
-            var f1;
+        function plotPnt(point) {
+            var f;
 
             if (point.location == [])
                 return;
             try {
-                f1 = format.readFeature(point.location);
+                f = format.readFeature(point.location);
             } catch (err) { }
 
-            if (f1) {
-                f1.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-                features2.push(f1);
+            if (f) {
+                f.getGeometry().transform('EPSG:4326', 'EPSG:3857');
+                feature_point.push(f);
             }
 
-            vector2 = new ol.layer.Vector({
-                source: new ol.source.Vector({ features: features2 }),
-                style: styles2
+            vector_point = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: feature_point }),
+                style: style_point
             });
-            map.addLayer(vector2);
+            map.addLayer(vector_point);
         }
 
-        // from CY
-        function clearMap() {
-            map.removeLayer(vector);
-            features.clear();
-            vector = new ol.layer.Vector({
-                source: new ol.source.Vector({ features: features }),
-                style: styles
+        function clearMap_Group() {
+            map.removeLayer(vector_group);
+            feature_group.clear();
+            vector_group = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: feature_group }),
+                style: style_group
             });
-            selectGeom(current_shape);
-            map.addLayer(vector);
+            map.addLayer(vector_group);
         }
 
-        function clearMap2() {
-            map.removeLayer(vector2);
-            features2.clear();
-            vector2 = new ol.layer.Vector({
-                source: new ol.source.Vector({ features: features2 }),
-                style: styles2
+        function clearMap_Point() {
+            map.removeLayer(vector_point);
+            feature_point.clear();
+            vector_point = new ol.layer.Vector({
+                source: new ol.source.Vector({ features: feature_point }),
+                style: style_point
             });
-            selectGeom(current_shape);
-            map.addLayer(vector2);
+            map.addLayer(vector_point);
         }
 
     </script>
@@ -258,7 +231,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in arrey">
+                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
                         <th scope="row">{{ index +1 }}</th>
                         <td>{{apt.icao}}</td>
                         <td>{{apt.city}}</td>
@@ -269,33 +242,26 @@
             </tbody>
         </table>
     </div>
-    <!-- from CY
-        <div class="span12" style="padding: 10px; border:0px">
-            <textarea id="wktStringTextArea" class="form-control" rows="2" onclick="restoreDefaultColors()">
-            GEOMETRYCOLLECTION(POLYGON((89.4990234375 42.73410219406955,119.03027343750001 43.05604502521945,105.05566406250001 24.83061329183866,89.4990234375 42.73410219406955)),POINT(104.0888671875 34.79937020713594))
-          </textarea>
-    --->
     <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
-        <button type="button" class="btn btn-primary" onclick="clearMap()">Clear</button>
-        <button type="button" class="btn btn-primary" onclick="plotWKT(multipoint)">Plot</button>
+        <button type="button" class="btn btn-primary" onclick="clearMap_Group()">Clear</button>
+        <button type="button" class="btn btn-primary" onclick="plotGrp(multipoint)">Plot</button>
     </div>
 
     <script>
-        console.log("tbl ary:" + ary);
         var tbl = new Vue({
             el: '#tbl',
             data: {
-                arrey: []
+                tbl_array: []
             },
             mounted: function () {
-                this.arrey = ary;
+                this.tbl_array = apiArray;
             },
             methods: {
                 mouseover (i) {
-                    pKT2(JSON.parse(JSON.stringify(ary[i])));
+                    plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
                 },
                 mouseleave (i) {
-                    clearMap2();
+                    clearMap_Point();
                 }
             }
         })
