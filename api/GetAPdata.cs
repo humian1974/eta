@@ -50,6 +50,12 @@ namespace GetAPdata
                 case "ea":
                     sort = "elevation asc";
                     break;
+                case "ld":
+                    sort = "laty desc";
+                    break;
+                case "la":
+                    sort = "laty asc";
+                    break;
             }
             
             using(var conn = new SqlConnection(AZURE_CONN_STRING))
