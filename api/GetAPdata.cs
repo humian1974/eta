@@ -61,7 +61,7 @@ namespace GetAPdata
             using(var conn = new SqlConnection(AZURE_CONN_STRING))
             {
                 var result = await conn.QuerySingleOrDefaultAsync<string>(
-                    "web.GetairportData3", 
+                    "dbo.GetairportData1", 
                     new {
                         @countn = count,
                         @icao = icao,
@@ -75,3 +75,4 @@ namespace GetAPdata
         }
     }
 }
+// list1-2
