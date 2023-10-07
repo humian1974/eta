@@ -204,7 +204,26 @@
             });
             map.addLayer(vector_point);
         }
-
+        
+        import { createApp } from 'vue'
+        
+        const tbl = createApp({
+            el: '#tbl',
+            data: {
+                tbl_array: []
+            },
+            mounted: function () {
+                this.tbl_array = apiArray;
+            },
+            methods: {
+                mouseover (i) {
+                    plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
+                },
+                mouseleave (i) {
+                    clearMap_Point();
+                }
+            }
+        })
     </script>
 </head>
 
@@ -248,27 +267,6 @@
     <div id="bottom">
         Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Code <a href="https://github.com/humian1974/eta">HERE</a>
     </div>
-    <script>
-        import { createApp } from 'vue'
-        
-        const tbl = createApp({
-            el: '#tbl',
-            data: {
-                tbl_array: []
-            },
-            mounted: function () {
-                this.tbl_array = apiArray;
-            },
-            methods: {
-                mouseover (i) {
-                    plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
-                },
-                mouseleave (i) {
-                    clearMap_Point();
-                }
-            }
-        })
-    </script>
 
 </body>
 
