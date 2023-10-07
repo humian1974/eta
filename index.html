@@ -249,7 +249,9 @@
         Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Code <a href="https://github.com/humian1974/eta">HERE</a>
     </div>
     <script>
-        var tbl = new vue({
+        import { createApp } from 'vue'
+        
+        const tbl = createApp({
             el: '#tbl',
             data: {
                 tbl_array: []
