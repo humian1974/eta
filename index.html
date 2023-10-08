@@ -254,8 +254,8 @@
         
         const tbl = Vue.createApp({
             el: '#tbl',
-            data: {
-                tbl_array: []
+            data() {
+                return { tbl_array: [] };
             },
             mounted: function () {
                 this.tbl_array = apiArray;
