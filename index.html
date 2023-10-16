@@ -226,7 +226,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
+                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl.tbl_array">
                         <th scope="row">{{ index +1 }}</th>
                         <td>{{apt.icao}}</td>
                         <td>{{apt.city}}</td>
