@@ -252,7 +252,7 @@
     <script>
 //        import { createApp } from 'vue'
         
-        const vm = Vue.createApp({
+        const tbl = Vue.createApp({
 //            el: '#tbl',
             data() {
                 return { tbl_array: [] };
@@ -268,9 +268,9 @@
                     clearMap_Point();
                 }
             }
-        }).mount(#tbl);
+        });
 
-//        tbl.mount('#tbl');
+        tbl.mount('#tbl');
 
     </script>
 
