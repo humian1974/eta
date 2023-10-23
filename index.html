@@ -256,11 +256,11 @@
         const tbl = Vue.createApp({
             el: '#tbl',
             data() {
-                return { tbl_array: [] };
+                return { tbl_array: [apiArray] };
             },
-            mounted: function () {
-                this.tbl_array = apiArray;
-            },
+//            mounted: function () {
+//                this.tbl_array = apiArray;
+//            },
             methods: {
                 mouseover (i) {
                     plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
