@@ -210,52 +210,50 @@
 </head>
 
 <body onload="init()">
-    <template>
-        <div class="container-fluid" style="padding: 2px; border: 4px; height: 100%;">
-            <div class="span12">
-                <div id="map" class="map"></div>
-            </div>
+    <div class="container-fluid" style="padding: 2px; border: 4px; height: 100%;">
+        <div class="span12">
+            <div id="map" class="map"></div>
         </div>
-        <div id="tbl">
-            <b-table striped hover :items="tbl.tbl_array" :fields="tbl.fields"></b-table>
-        </div>
-    <!--
-        <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ICAO</th>
-                        <th scope="col">city</th>
-                        <th scope="col">country</th>
-                        <th scope="col">rwy lnth</th>
-                        <th scope="col">elev</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
-                            <th scope="row">{{ index +1 }}</th>
-                            <td>{{apt.icao}}</td>
-                            <td>{{apt.city}}</td>
-                            <td>{{apt.country}}</td>
-                            <td>{{apt.rwy}}</td>
-                            <td>{{apt.elevation}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    -->
-        <div class="input" style="padding: 10px; position: absolute; left:0px">
-            <img src="input.jpg" alt="api params"><br><br><br>
-        </div>
-        <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
-            <button type="button" class="btn btn-primary" onclick="clearMap_Group()">Clear</button>
-            <button type="button" class="btn btn-primary" onclick="plotGrp(multipoint)">Plot</button>
-        </div>
-        <div id="bottom">
-            Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Code <a href="https://github.com/humian1974/eta">HERE</a>
-        </div>
-    </template>
+    </div>
+    <div id="tbl">
+        <b-table striped hover :items="tbl.tbl_array" :fields="tbl.fields"></b-table>
+    </div>
+<!--
+    <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ICAO</th>
+                    <th scope="col">city</th>
+                    <th scope="col">country</th>
+                    <th scope="col">rwy lnth</th>
+                    <th scope="col">elev</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
+                        <th scope="row">{{ index +1 }}</th>
+                        <td>{{apt.icao}}</td>
+                        <td>{{apt.city}}</td>
+                        <td>{{apt.country}}</td>
+                        <td>{{apt.rwy}}</td>
+                        <td>{{apt.elevation}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+-->
+    <div class="input" style="padding: 10px; position: absolute; left:0px">
+        <img src="input.jpg" alt="api params"><br><br><br>
+    </div>
+    <div class="btn-group btn-group-md" style="padding: 10px; position: absolute; right:0px">
+        <button type="button" class="btn btn-primary" onclick="clearMap_Group()">Clear</button>
+        <button type="button" class="btn btn-primary" onclick="plotGrp(multipoint)">Plot</button>
+    </div>
+    <div id="bottom">
+        Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Code <a href="https://github.com/humian1974/eta">HERE</a>
+    </div>
 
     <script>
         const tbl = Vue.createApp({
