@@ -214,6 +214,10 @@
             <div id="map" class="map"></div>
         </div>
     </div>
+    <div>
+        <b-table striped hover :items="tbl.tbl_array" :fields="tbl.fields"></b-table>
+    </div>
+<!--
     <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
         <table class="table">
             <thead>
@@ -238,6 +242,7 @@
             </tbody>
         </table>
     </div>
+-->
     <div class="input" style="padding: 10px; position: absolute; left:0px">
         <img src="input.jpg" alt="api params"><br><br><br>
     </div>
@@ -256,11 +261,16 @@
         const tbl = Vue.createApp({
             el: '#tbl',
             data() {
-                return { tbl_array: [] };
+                return {
+                    fields: ['ICAO', 'City', 'Country', 'RWY', 'elevation'],
+                    tbl_array: [apiArray]
+                };
             },
-            mounted: function () {
+/*
+                mounted: function () {
                 this.tbl_array = apiArray;
             },
+*/
             methods: {
                 mouseover (i) {
                     plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
