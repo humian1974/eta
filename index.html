@@ -215,10 +215,6 @@
             <div id="map" class="map"></div>
         </div>
     </div>
-    <div id="tbl">
-        <b-table striped hover :items="tbl.tbl_array" :fields="tbl.fields"></b-table>
-    </div>
-<!--
     <div class="table table-hover table-bordered table-sm mt-4" id="tbl">
         <table class="table">
             <thead>
@@ -232,18 +228,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-on:mouseover="mouseover(index)" v-on:mouseleave="mouseleave(index)" v-for="apt, index in tbl_array">
-                        <th scope="row">{{ index +1 }}</th>
-                        <td>{{apt.icao}}</td>
-                        <td>{{apt.city}}</td>
-                        <td>{{apt.country}}</td>
-                        <td>{{apt.rwy}}</td>
-                        <td>{{apt.elevation}}</td>
+                <tr v-for="(apt, index) in tbl_array" :key="index" @mouseover="mouseover(index)" @mouseleave="mouseleave(index)">
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td>{{ apt.icao }}</td>
+                    <td>{{ apt.city }}</td>
+                    <td>{{ apt.country }}</td>
+                    <td>{{ apt.rwy }}</td>
+                    <td>{{ apt.elevation }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
--->
     <div class="input" style="padding: 10px; position: absolute; left:0px">
         <img src="input.jpg" alt="api params"><br><br><br>
     </div>
