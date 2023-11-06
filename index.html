@@ -252,23 +252,21 @@
 
     <script>
         const tbl = Vue.createApp({
-            el: '#tbl',
             data() {
                 return {
-                    fields: ['ICAO', 'City', 'Country', 'RWY', 'elevation'],
-                    tbl_array: [apiArray]
-                };
+                    tbl_array: ref([])
+                }
             },
-/*
-                mounted: function () {
-                this.tbl_array = apiArray;
+            mounted() {
+                onMounted(() => {
+                    this.tbl_array = apiArray;
+                });
             },
-*/
             methods: {
-                mouseover (i) {
+                mouseover(i) {
                     plotPnt(JSON.parse(JSON.stringify(apiArray[i])));
                 },
-                mouseleave (i) {
+                mouseleave(i) {
                     clearMap_Point();
                 }
             }
