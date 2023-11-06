@@ -251,17 +251,14 @@
     </div>
 
     <script>
-        import { ref, onMounted } from 'vue';
         const tbl = Vue.createApp({
             data() {
                 return {
-                    tbl_array: ref([])
+                    tbl_array: []
                 }
             },
             mounted() {
-                onMounted(() => {
-                    this.tbl_array = apiArray;
-                });
+                this.tbl_array = apiArray;
             },
             methods: {
                 mouseover(i) {
@@ -271,9 +268,7 @@
                     clearMap_Point();
                 }
             }
-        });
-
-        tbl.mount('#tbl');
+        }).mount('#app');
 
     </script>
 
