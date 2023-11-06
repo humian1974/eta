@@ -251,10 +251,11 @@
     </div>
 
     <script>
+        import { ref, onMounted } from 'vue';
         const tbl = Vue.createApp({
             data() {
                 return {
-                    tbl_array: []
+                    tbl_array: ref([])
                 }
             },
             mounted() {
