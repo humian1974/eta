@@ -29,11 +29,12 @@ namespace GetAPdata
             Int32.TryParse(req.Query["c"], out count);
             if (count < 1 | count >50) count = 10;
 
-            string icao = req.Query["i"], city = req.Query["city"], cntry = req.Query["cntry"];
+            string ident = req.Query ["d"], icao = req.Query["i"], name=req.Query["n"], city = req.Query["city"], cntry = req.Query["cntry"];
+            if (ident == null | ident == "null") {ident = "%";} else if (ident.Length > 15) {ident = ident.Substring(0,15);}
             if (icao == null | icao == "null") {icao = "%";} else if (icao.Length > 15) {icao = icao.Substring(0,15);}
+            if (name == null | name == "null") {name = "%";} else if (name.Length > 31) {name = name.Substring(0,31);}
             if (city == null | city == "null") {city = "%";} else if (city.Length > 31) {city = city.Substring(0,31);}
             if (cntry == null | cntry == "null") {cntry = "%";} else if (cntry.Length > 31) {cntry = cntry.Substring(0,31);}
-
 
             string s_sort = "rd", sort = "elevation desc";
             switch (s_sort = req.Query["s"])
@@ -64,8 +65,10 @@ namespace GetAPdata
                     "web.GetairportData3", 
                     new {
                         @countn = count,
+                        @ident =ident,
                         @icao = icao,
                         @sort = sort,
+                        @name = name,
                         @city = city,
                         @country = cntry
                     }, commandType: CommandType.StoredProcedure);                
