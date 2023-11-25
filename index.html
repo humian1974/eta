@@ -112,11 +112,13 @@
 
             const params = new URLSearchParams(location.search);
             const count = params.get('c');
+            const ident = params.get('d');
             const icao = params.get('i');
             const sort = params.get('s');
+            const name = params.get('n');
             const city = params.get('city');
             const cntry = params.get('cntry');
-            const apiUrl = `/api/ap-data?c=${count}&i=${icao}&s=${sort}&city=${city}&cntry=${cntry}`;
+            const apiUrl = `/api/ap-data?c=${count}&d=${ident}&i=${icao}&s=${sort}&n=${name}&city=${city}&cntry=${cntry}`;
 
             apiData = $.getJSON( apiUrl, function (data) {
                 apiArray = data.aps;
@@ -220,7 +222,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">ident</th>
                     <th scope="col">ICAO</th>
+                    <th scope="col">name</th>
                     <th scope="col">city</th>
                     <th scope="col">country</th>
                     <th scope="col">rwy lnth</th>
@@ -230,7 +234,9 @@
             <tbody>
                 <tr v-for="(apt, index) in tbl_array" :key="index" @mouseover="mouseover(index)" @mouseleave="mouseleave(index)">
                     <th scope="row">{{ index + 1 }}</th>
+                    <td>{{ apt.ident }}</td>
                     <td>{{ apt.icao }}</td>
+                    <td>{{ apt.name }}</td>
                     <td>{{ apt.city }}</td>
                     <td>{{ apt.country }}</td>
                     <td>{{ apt.rwy }}</td>
@@ -247,7 +253,7 @@
         <button type="button" class="btn btn-primary" onclick="plotGrp(multipoint)">Plot</button>
     </div>
     <div id="bottom">
-        Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Code <a href="https://github.com/humian1974/eta">HERE</a>
+        Plot airport location with Openlayers WKT / VUE / Azure SWA / X-plane DB. Nov'23. Code <a href="https://github.com/humian1974/eta">HERE</a>
     </div>
 
     <script>
